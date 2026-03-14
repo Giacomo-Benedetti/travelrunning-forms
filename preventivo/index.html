@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://n8n.srv1077918.hstgr.cloud; form-action 'none'; base-uri 'self'; frame-ancestors 'none'" />
+  <title>Richiesta Preventivo — TravelRunning</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="../shared/css/base.css" />
+  <link rel="stylesheet" href="../shared/css/layout.css" />
+  <link rel="stylesheet" href="../shared/css/components.css" />
+  <!-- Form-specific CSS -->
+  <link rel="stylesheet" href="css/preventivo.css" />
+</head>
+<body>
+
+<!-- HERO -->
+<header>
+  <div class="topbar">
+    <img src="../assets/logo-travelrunning.jpg" alt="TravelRunning" />
+  </div>
+  <div class="event-banner">
+    <h1 id="hero-event-name"><span class="skeleton" id="skeleton-name">&nbsp;</span></h1>
+    <div class="ev-date" id="hero-date"></div>
+    <p class="ev-sub">Richiesta di preventivo</p>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="page" id="main-content">
+  <!-- Content injected by JS after event config loads -->
+</main>
+
+<footer>
+  &copy; TravelRunning by Arte &amp; Sapori s.n.c. &mdash;
+  <a href="mailto:info@travelrunning.it">info@travelrunning.it</a>
+  &mdash; <a href="https://travelrunning.it">travelrunning.it</a>
+</footer>
+
+<!-- Shared JS -->
+<script src="../shared/js/config.js"></script>
+<script src="../shared/js/utils.js"></script>
+<script src="../shared/js/dates.js"></script>
+<script src="../shared/js/counter.js"></script>
+<script src="../shared/js/rooms.js"></script>
+<script src="../shared/js/api.js"></script>
+<script src="../shared/js/tel-validation.js"></script>
+<!-- Preventivo JS -->
+<script src="js/build-form.js"></script>
+<script src="js/submit.js"></script>
+<script src="js/init.js"></script>
+</body>
+</html>

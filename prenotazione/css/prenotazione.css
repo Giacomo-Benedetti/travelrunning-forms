@@ -1,0 +1,299 @@
+/* ══════════════════════════════════════════════════════════
+   TravelRunning — Prenotazione Form-Specific Styles
+   ══════════════════════════════════════════════════════════ */
+
+/* Force uppercase on document number fields */
+#c_doc_numero, [id$="_doc_numero"] { text-transform: uppercase; }
+
+/* ── RIEPILOGO SOGGIORNO ── */
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+}
+.summary-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.summary-row .s-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--c-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.summary-row .s-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--c-ink);
+}
+.summary-row.full { grid-column: 1 / -1; }
+
+/* ── SERVIZI ── */
+.servizi-list { display: flex; flex-direction: column; gap: 12px; }
+.servizio-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.servizio-item:hover { border-color: var(--c-primary); background: #f0f4ff; }
+.servizio-item.checked { border-color: var(--c-primary); background: #eef2ff; }
+.servizio-item input[type=checkbox] { margin-top: 2px; width: 16px; height: 16px; cursor: pointer; accent-color: var(--c-primary); }
+.servizio-item .sv-text { flex: 1; }
+.servizio-item .sv-name { font-weight: 600; font-size: 14px; }
+.servizio-item .sv-note { font-size: 12px; color: var(--c-muted); margin-top: 2px; }
+.servizio-item .sv-price {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--c-primary);
+  white-space: nowrap;
+}
+.servizio-item.forced { cursor: default; }
+.servizio-item.forced:hover { border-color: var(--c-primary); background: #eef2ff; }
+
+/* ── VOLO ── */
+.volo-info-grid { display: flex; flex-direction: column; gap: 0; }
+.volo-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--c-border); }
+.volo-row:last-child { border-bottom: none; }
+.volo-label { font-size: 12px; font-weight: 600; color: var(--c-muted); text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0; }
+.volo-value { font-size: 14px; font-weight: 500; color: var(--c-ink); text-align: right; }
+
+/* ── PART COUNT INFO ── */
+.part-info-text {
+  font-size: 13px;
+  color: var(--c-muted);
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  background: #f3f4f6;
+  border-radius: var(--r);
+}
+
+/* ── PARTECIPANTE BLOCK ── */
+.partecipante-block {
+  border: 1.5px solid #e5e7eb;
+  border-left: 4px solid var(--c-primary);
+  border-radius: var(--r);
+  margin-top: 20px;
+  overflow: hidden;
+  background: #ffffff;
+}
+.partecipante-block:first-child { margin-top: 0; }
+.part-header {
+  background: #dce6f7;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.part-body { padding: 16px; }
+
+/* ── READONLY BADGE ── */
+.readonly-badge {
+  font-size: 10px;
+  background: #dbeafe;
+  color: #1e40af;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── PETTORALE BLOCK ── */
+.pettorale-block {
+  border: 1.5px solid #e5e7eb;
+  border-left: 4px solid var(--c-primary);
+  border-radius: var(--r);
+  margin-top: 20px;
+  overflow: hidden;
+  background: #ffffff;
+}
+.pettorale-block:first-child { margin-top: 0; }
+.pett-header {
+  background: var(--c-primary);
+  color: #fff;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.pett-body { padding: 16px; }
+
+/* ── PETTORALE CONDITIONAL ── */
+.pett-note-contraente {
+  grid-column: 1 / -1;
+  padding: 10px 12px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--r);
+  font-size: 13px;
+  color: #1d4ed8;
+}
+.pett-optional-header {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--c-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 10px 0 4px;
+  border-top: 1px solid var(--c-border);
+  margin-top: 4px;
+}
+.pett-section-header {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 10px 0 2px;
+  border-top: 1px solid var(--c-border);
+  margin-top: 4px;
+}
+
+/* ── RIEPILOGO PREZZI ── */
+.price-table { width: 100%; border-collapse: collapse; }
+.price-table tr td { padding: 7px 0; font-size: 14px; }
+.price-table tr td:last-child { text-align: right; font-weight: 500; }
+.price-table tr.subtotal td { border-top: 1px solid var(--c-border); padding-top: 10px; }
+.price-table tr.total td {
+  border-top: 2px solid var(--c-ink);
+  padding-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.price-table tr.payment-row td { color: var(--c-muted); font-size: 13px; }
+.price-label-muted { color: var(--c-muted); }
+
+/* ── CONDIZIONI ── */
+.condizioni-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px;
+  background: var(--c-warn-bg);
+  border: 1px solid var(--c-warn-border);
+  border-radius: var(--r);
+}
+.condizioni-row input[type=checkbox] { margin-top: 2px; width: 16px; height: 16px; accent-color: var(--c-primary); }
+.condizioni-row label { font-size: 13px; cursor: pointer; }
+.condizioni-row label a { color: var(--c-primary); }
+
+/* ── LOADING ── */
+#loading-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--c-muted);
+  font-size: 15px;
+}
+
+/* ── SUCCESS PAGE ── */
+#success-page {
+  display: none;
+  text-align: center;
+  padding: 60px 24px;
+}
+#success-page .check-icon {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+#success-page h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--c-primary);
+  margin-bottom: 10px;
+}
+#success-page p { color: var(--c-muted); font-size: 15px; max-width: 420px; margin: 0 auto 8px; }
+#success-page .amount { font-size: 22px; font-weight: 700; color: var(--c-ink); margin: 18px 0 6px; }
+
+/* ── INPUT VALIDATION ── */
+.field.invalid input,
+.field.invalid select,
+.field.invalid textarea {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(220,38,38,0.12) !important;
+}
+
+/* ── MODIFICATION MODE ── */
+.mod-info {
+  background: #eff6ff;
+  border: 1px solid #93c5fd;
+  border-radius: var(--r);
+  padding: 16px 20px;
+}
+.mod-info h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--c-primary);
+  margin-bottom: 6px;
+}
+.mod-info p { font-size: 13px; color: var(--c-muted); margin: 2px 0; }
+.mod-existing-badge {
+  font-size: 10px;
+  background: #dcfce7;
+  color: #166534;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.btn-add-wrap { text-align: center; margin-top: 16px; }
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  background: var(--c-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--r);
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s;
+}
+.btn-add:hover { background: #162f6e; }
+.btn-delete-mod {
+  float: right;
+  padding: 2px 12px;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: var(--r);
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s;
+}
+.btn-delete-mod:hover { background: #b91c1c; }
+.mod-delta-row td { color: var(--c-primary); font-weight: 600; }
+
+@media (max-width: 540px) {
+  .summary-grid { grid-template-columns: 1fr; }
+  .summary-row.full { grid-column: 1; }
+  .pett-note-contraente { grid-column: 1; }
+  .pett-optional-header { grid-column: 1; }
+  .pett-section-header { grid-column: 1; }
+}

@@ -1,0 +1,47 @@
+/* ══════════════════════════════════════════════════════════
+   TravelRunning — Shared Base Styles
+   Reset, CSS variables, typography, body
+   ══════════════════════════════════════════════════════════ */
+
+:root {
+  --c-bg:       #ffffff;
+  --c-white:    #ffffff;
+  --c-ink:      #111827;
+  --c-muted:    #6b7280;
+  --c-subtle:   #9ca3af;
+  --c-border:   #e5e7eb;
+  --c-input-bg: #ffffff;
+  --c-input-border: #d1d5db;
+  --c-input-focus:  #1d4ed8;
+  --c-primary:  #1d3d8f;
+  --c-cta:      #dc2626;
+  --c-cta-hover:#b91c1c;
+  --c-success-bg: #f0fdf4;
+  --c-success-border: #86efac;
+  --c-success-text: #166534;
+  --c-error-bg: #fef2f2;
+  --c-error-border: #fca5a5;
+  --c-error-text: #991b1b;
+  --c-warn-bg:  #fffbeb;
+  --c-warn-border: #fcd34d;
+  --c-warn-text: #92400e;
+  --c-readonly-bg: #ffffff;
+
+  --r: 6px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.07);
+
+  --font: 'Open Sans', system-ui, -apple-system, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.55;
+  background: var(--c-bg);
+  color: var(--c-ink);
+  min-height: 100vh;
+}

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://n8n.srv1077918.hstgr.cloud; form-action 'none'; base-uri 'self'; frame-ancestors 'none'" />
+  <title>Prenotazione — TravelRunning</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Shared CSS -->
+  <link rel="stylesheet" href="../shared/css/base.css" />
+  <link rel="stylesheet" href="../shared/css/layout.css" />
+  <link rel="stylesheet" href="../shared/css/components.css" />
+  <!-- Form-specific CSS -->
+  <link rel="stylesheet" href="css/prenotazione.css" />
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <img src="../assets/logo-travelrunning.jpg" alt="TravelRunning" id="logo-img" />
+</div>
+
+<!-- EVENT BANNER -->
+<div class="event-banner" id="event-banner" style="display:none">
+  <p class="ev-pretitle">Prenotazione per</p>
+  <h1 id="banner-title">—</h1>
+</div>
+
+<!-- MAIN WRAP -->
+<div class="main-wrap">
+
+  <!-- LOADING -->
+  <div id="loading-state">
+    <div class="spinner"></div><br>
+    Caricamento dati prenotazione…
+  </div>
+
+  <!-- ERROR STATE -->
+  <div id="error-state" class="hidden">
+    <div class="alert alert-error" id="error-msg">Errore nel caricamento.</div>
+  </div>
+
+  <!-- FORM -->
+  <form id="prenota-form" class="hidden" novalidate>
+
+    <!-- 1. RIEPILOGO SOGGIORNO -->
+    <div class="section-head"><span class="section-num">1</span><span class="section-title">Riepilogo Soggiorno</span></div>
+    <div class="card">
+      <div class="summary-grid">
+        <div class="summary-row full"><span class="s-label">Evento</span><span class="s-value" id="s-evento">—</span></div>
+        <div class="summary-row full"><span class="s-label">Hotel</span><span class="s-value" id="s-hotel">—</span></div>
+        <div class="summary-row"><span class="s-label">Check-in</span><span class="s-value" id="s-checkin">—</span></div>
+        <div class="summary-row"><span class="s-label">Check-out</span><span class="s-value" id="s-checkout">—</span></div>
+        <div class="summary-row"><span class="s-label">Partecipanti</span><span class="s-value" id="s-partecipanti">—</span></div>
+        <div class="summary-row"><span class="s-label">Sistemazione</span><span class="s-value" id="s-camere">—</span></div>
+        <div class="summary-row"><span class="s-label">Pettorali richiesti</span><span class="s-value" id="s-pettorali">—</span></div>
+      </div>
+    </div>
+
+    <!-- 1b. VOLO INCLUSO -->
+    <div class="section-head" id="volo-head" style="display:none"><span class="section-title" style="margin-left:34px">Volo Incluso nel Pacchetto</span></div>
+    <div class="card" id="volo-card" style="display:none">
+        <div class="volo-info-grid">
+          <div class="volo-row"><span class="volo-label">Compagnia</span><span class="volo-value" id="volo-compagnia">—</span></div>
+          <div class="volo-row"><span class="volo-label">Tratta</span><span class="volo-value" id="volo-tratta">—</span></div>
+          <div class="volo-row"><span class="volo-label">Partenza</span><span class="volo-value" id="volo-partenza">—</span></div>
+          <div class="volo-row"><span class="volo-label">Ritorno</span><span class="volo-value" id="volo-ritorno">—</span></div>
+          <div class="volo-row"><span class="volo-label">Prezzo per persona</span><span class="volo-value" id="volo-prezzo-pp">—</span></div>
+          <div class="volo-row"><span class="volo-label">Totale volo</span><span class="volo-value" id="volo-prezzo-tot">—</span></div>
+          <div class="volo-row hidden" id="volo-note-row"><span class="volo-label">Note</span><span class="volo-value" id="volo-note">—</span></div>
+        </div>
+        <div style="margin-top:16px">
+          <label class="condizioni-row">
+            <input type="checkbox" id="chk-volo" />
+            <span>Confermo i dettagli del volo sopra indicati.</span>
+          </label>
+        </div>
+    </div>
+
+    <!-- MOD INFO (hidden, shown in modifica mode) -->
+    <div class="section-head hidden" id="mod-info-head"><span class="section-title" style="margin-left:34px">Modifica Prenotazione</span></div>
+    <div class="card hidden" id="mod-info-card">
+      <div class="mod-info">
+        <h3 id="mod-info-title">—</h3>
+        <p id="mod-info-details">—</p>
+        <p style="margin-top:8px">Puoi aggiungere nuovi partecipanti e/o iscriverli alla gara.</p>
+      </div>
+    </div>
+
+    <!-- MOD CAMERE (hidden, shown when participant added in mod mode) -->
+    <div class="section-head hidden" id="modifica-camere-head"><span class="section-title" style="margin-left:34px">Modifica Sistemazione</span></div>
+    <div class="card hidden" id="modifica-camere-card">
+        <p style="margin-bottom:12px;color:#64748b;font-size:13px">
+          Hai aggiunto partecipanti: aggiorna la sistemazione in modo che il totale posti sia uguale al numero di partecipanti.</p>
+        <div class="form-grid" id="camere-inputs">
+          <div class="field"><label>Singole</label>
+            <input type="number" min="0" id="mod_n_singole" value="0" /></div>
+          <div class="field"><label>Doppie</label>
+            <input type="number" min="0" id="mod_n_doppie" value="0" /></div>
+          <div class="field"><label>Matrimoniali</label>
+            <input type="number" min="0" id="mod_n_matrimoniali" value="0" /></div>
+          <div class="field"><label>Triple</label>
+            <input type="number" min="0" id="mod_n_triple" value="0" /></div>
+          <div class="field"><label>Quadruple</label>
+            <input type="number" min="0" id="mod_n_quadruple" value="0" /></div>
+          <div class="field"><label>Mat.+ragazzo</label>
+            <input type="number" min="0" id="mod_n_mat3_ragazzo" value="0" /></div>
+          <div class="field"><label>Mat.+bambino</label>
+            <input type="number" min="0" id="mod_n_mat3_bambino" value="0" /></div>
+        </div>
+        <div id="camere-validation" style="margin-top:8px;font-size:13px">
+          <span id="camere-posti">Posti: 0</span> /
+          <span id="camere-partecipanti">Partecipanti: 0</span>
+          <span id="camere-status" style="margin-left:8px"></span>
+        </div>
+    </div>
+
+    <!-- 2. DATI CONTRAENTE -->
+    <div class="section-head" id="contraente-head"><span class="section-num">2</span><span class="section-title">Dati Contraente</span></div>
+    <div class="card" id="contraente-card">
+        <div class="form-grid">
+          <div class="field"><label>Nome <span class="req">*</span></label>
+            <input type="text" name="c_nome" id="c_nome" required autocomplete="given-name" /></div>
+          <div class="field"><label>Cognome <span class="req">*</span></label>
+            <input type="text" name="c_cognome" id="c_cognome" required autocomplete="family-name" /></div>
+          <div class="field"><label>Data di nascita <span class="req">*</span></label>
+            <input type="date" name="c_data_nascita" id="c_data_nascita" required /></div>
+          <div class="field"><label>Luogo di nascita <span class="req">*</span></label>
+            <input type="text" name="c_luogo_nascita" id="c_luogo_nascita" required /></div>
+          <div class="field"><label>Nazionalit&agrave; <span class="req">*</span></label>
+            <input type="text" name="c_nazionalita" id="c_nazionalita" required placeholder="es. Italiana" /></div>
+          <div class="field full"><label>Codice Fiscale <span class="req">*</span></label>
+            <input type="text" name="c_codice_fiscale" required autocomplete="off"
+                   placeholder="RSSMRA80A01H501U" style="text-transform:uppercase" /></div>
+          <div class="field full"><label>Indirizzo <span class="req">*</span></label>
+            <input type="text" name="c_indirizzo" required autocomplete="street-address" /></div>
+          <div class="field"><label>Citt&agrave; <span class="req">*</span></label>
+            <input type="text" name="c_citta" required autocomplete="address-level2" /></div>
+          <div class="field"><label>CAP <span class="req">*</span></label>
+            <input type="text" name="c_cap" required autocomplete="postal-code" /></div>
+          <div class="field"><label>Provincia</label>
+            <input type="text" name="c_provincia" maxlength="2" placeholder="RM" autocomplete="address-level1" /></div>
+          <div class="field"><label>Email <span class="req">*</span></label>
+            <input type="email" name="c_email" required autocomplete="email" /></div>
+          <div class="field"><label>Telefono <span class="req">*</span></label>
+            <input type="tel" name="c_telefono" required autocomplete="tel" /></div>
+          <div class="field"><label>Tipo documento <span class="req">*</span></label>
+            <select name="c_doc_tipo" id="c_doc_tipo" required>
+              <option value="">— seleziona —</option>
+              <option value="Carta d'identit&agrave;">Carta d'identit&agrave;</option>
+              <option value="Passaporto">Passaporto</option>
+            </select></div>
+          <div class="field"><label>N&deg; documento <span class="req">*</span></label>
+            <input type="text" name="c_doc_numero" id="c_doc_numero" required /></div>
+          <div class="field"><label>Scadenza documento <span class="req">*</span></label>
+            <input type="date" name="c_doc_scadenza" id="c_doc_scadenza" required /></div>
+        </div>
+    </div>
+
+    <!-- 3. DATI PARTECIPANTI -->
+    <div class="section-head"><span class="section-num">3</span><span class="section-title">Dati Partecipanti</span></div>
+    <div class="card">
+      <div id="partecipanti-container"></div>
+    </div>
+
+    <!-- 4. DATI PETTORALI -->
+    <div class="section-head" id="pettorali-head" style="display:none"><span class="section-num">4</span><span class="section-title" id="pettorali-title">Dati Pettorali Gara</span></div>
+    <div class="card" id="pettorali-card" style="display:none">
+      <div id="pett-mismatch-warn" class="alert alert-warn hidden" style="margin-bottom:16px"></div>
+      <div id="dist-quota-counter" style="display:none;margin-bottom:16px;padding:10px 14px;background:#f0f9ff;border-left:4px solid #1d4ed8;border-radius:4px;font-size:13px"></div>
+      <div id="pettorali-container"></div>
+    </div>
+
+    <!-- 5. SERVIZI OPZIONALI -->
+    <div class="section-head" id="servizi-head"><span class="section-num">5</span><span class="section-title" id="servizi-title">Servizi Opzionali</span></div>
+    <div class="card" id="servizi-card">
+      <p class="part-info-text" id="part-info-text"></p>
+      <div class="servizi-list" id="servizi-list"></div>
+    </div>
+
+    <!-- 6. RIEPILOGO & CONFERMA -->
+    <div class="section-head"><span class="section-num">6</span><span class="section-title">Riepilogo e Conferma</span></div>
+    <div class="card">
+      <table class="price-table">
+          <tr><td>Soggiorno (camere)</td><td id="pr-camere">—</td></tr>
+          <tr id="pr-pett-row" class="hidden"><td>Iscrizioni gara</td><td id="pr-pettorali">—</td></tr>
+          <tr id="pr-volo-row" class="hidden"><td>Volo</td><td id="pr-volo">—</td></tr>
+          <tr id="pr-visita-row" class="hidden"><td>Visita guidata</td><td id="pr-visita">—</td></tr>
+          <tr id="pr-cena-row" class="hidden"><td>Cena conviviale</td><td id="pr-cena">—</td></tr>
+          <tr id="pr-assann-row" class="hidden"><td>Ass. annullamento viaggio</td><td id="pr-assann">—</td></tr>
+          <tr id="pr-assmed-row" class="hidden"><td>Ass. medica</td><td id="pr-assmed">—</td></tr>
+          <tr class="total"><td>Totale</td><td id="pr-totale">—</td></tr>
+        </table>
+
+        <div style="margin-top:20px">
+          <div class="condizioni-row">
+            <input type="checkbox" id="chk-condizioni" />
+            <label for="chk-condizioni">
+              Ho letto e accetto i <a href="https://travelrunning.it/termini-condizioni" target="_blank">Termini e Condizioni</a>
+              di TravelRunning e autorizzo il trattamento dei dati personali ai sensi del GDPR.
+            </label>
+          </div>
+        </div>
+
+        <div id="form-error" class="alert alert-error hidden" style="margin-top:14px"></div>
+
+        <button type="submit" class="btn-submit" id="btn-submit" disabled style="margin-top:18px">
+          Conferma Prenotazione
+        </button>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS PAGE -->
+  <div id="success-page">
+    <div class="check-icon">&#x2705;</div>
+    <h2>Prenotazione Confermata!</h2>
+    <p>Grazie per la sua prenotazione.</p>
+    <p>Le invieremo il contratto a breve con le istruzioni per il pagamento dell'acconto.</p>
+  </div>
+
+</div><!-- /main-wrap -->
+
+<!-- Shared JS -->
+<script src="../shared/js/config.js"></script>
+<script src="../shared/js/utils.js"></script>
+<script src="../shared/js/dates.js"></script>
+<script src="../shared/js/counter.js"></script>
+<script src="../shared/js/rooms.js"></script>
+<script src="../shared/js/api.js"></script>
+<script src="../shared/js/tel-validation.js"></script>
+<!-- Prenotazione JS -->
+<script src="js/state.js"></script>
+<script src="js/render-page.js"></script>
+<script src="js/servizi.js"></script>
+<script src="js/partecipanti.js"></script>
+<script src="js/pettorali.js"></script>
+<script src="js/pricing.js"></script>
+<script src="js/submit.js"></script>
+<script src="js/init.js"></script>
+</body>
+</html>

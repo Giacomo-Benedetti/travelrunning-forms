@@ -1,0 +1,120 @@
+/* ══════════════════════════════════════════════════════════
+   TravelRunning — Preventivo Form-Specific Styles
+   ══════════════════════════════════════════════════════════ */
+
+/* Override: preventivo uses larger logo and different banner style */
+.topbar img { height: 80px; }
+.event-banner h1 {
+  font-family: inherit;
+  font-size: clamp(24px, 5vw, 40px);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  text-transform: none;
+}
+
+/* Skeleton loader for event name */
+.skeleton {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 3px;
+  height: 1em;
+  width: 260px;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* Notti badge */
+.notti-wrap { margin-top: 12px; }
+.notti-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: var(--c-primary);
+  color: #fff;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.notti-badge.err { background: var(--c-cta); }
+
+/* Capacity warning */
+.capacity-warning {
+  display: none;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--r);
+  font-size: 13px;
+  line-height: 1.4;
+  margin-top: 8px;
+  background: var(--c-error-bg);
+  border: 1px solid var(--c-error-border);
+  color: var(--c-error-text);
+}
+.capacity-warning::before { content: '\26a0'; flex-shrink: 0; }
+.capacity-warning.capacity-soft {
+  background: var(--c-warn-bg);
+  border-color: var(--c-warn-border);
+  color: var(--c-warn-text);
+}
+
+/* No pettorali message */
+.no-pettorali { font-size: 13px; color: var(--c-subtle); font-style: italic; }
+
+/* Pettorali total */
+.pettorali-total { font-size: 13px; color: var(--c-muted); margin-top: 10px; }
+.pettorali-total strong { color: var(--c-ink); }
+
+/* Submit area */
+.submit-area { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+.submit-note { font-size: 12px; color: var(--c-subtle); text-align: center; }
+.submit-note span { color: var(--c-cta); }
+
+/* Override: preventivo submit uses primary blue, not CTA red */
+.btn-submit {
+  background: var(--c-primary);
+  font-family: var(--font);
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(29,61,143,0.25);
+}
+.btn-submit:hover:not(:disabled) {
+  background: #162f6e;
+  box-shadow: 0 4px 14px rgba(29,61,143,0.35);
+  transform: translateY(-1px);
+}
+
+/* Preventivo alert style (display:none by default, shown with .on class) */
+.alert { display: none; }
+.alert.on { display: flex; }
+.alert-success.on { display: block; }
+.alert-success::before { content: none; }
+.alert::before { content: '\26a0'; flex-shrink: 0; font-size: 14px; }
+
+/* Inline spinner (small, for submit button) */
+.btn-submit .spinner {
+  width: 14px; height: 14px;
+  border-width: 2px;
+  border-color: rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  vertical-align: middle;
+  margin-right: 7px;
+  margin-bottom: 0;
+}
+
+/* Volo checkbox label */
+.volo-checkbox-row { margin-bottom: 0; }
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.checkbox-label input[type="checkbox"] {
+  margin-top: 3px;
+  width: 16px; height: 16px;
+  accent-color: var(--c-primary);
+}
